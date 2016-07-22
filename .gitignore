@@ -1,0 +1,5 @@
+.buildpath
+.project
+.settings/
+php/conf.inc.php
+

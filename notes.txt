@@ -1,0 +1,10 @@
+SQL :
+
+CREATE TABLE IF NOT EXISTS `ts_data` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `start` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `stop` datetime DEFAULT NULL,
+  `comment` varchar(200) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
