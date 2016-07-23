@@ -1,7 +1,18 @@
 <?php
 require_once __DIR__ . '/php/ALL.inc.php';
 
-$tss = TimeSheet::get_all ();
+
+/*  get all time sheets from the most recent  */
+$dbh = DB::get();
+$sql = '
+	SELECT id, start, stop, comment
+	FROM ' . $conf['mysql_table_prefix'].$conf['table_name_data'] . '
+	ORDER BY start DESC';
+//echo "<pre> $sql </pre>";
+$st = $dbh->query($sql) or die(print_r($dbh->errorInfo(), true));
+$st->setFetchMode(PDO::FETCH_CLASS, 'TimeSheet');
+$tss = $st->fetchAll(PDO::FETCH_CLASS, 'TimeSheet');
+
 
 ?>
 <!DOCTYPE html>
@@ -13,7 +24,7 @@ $tss = TimeSheet::get_all ();
 <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 <meta name="description" content="">
 <meta name="author" content="">
-<link rel="icon" href="../../favicon.ico">
+<link rel="icon" href="./favicon.ico">
 
 <title>TimeSheet</title>
 
@@ -84,7 +95,7 @@ $tss = TimeSheet::get_all ();
 			
 			<div class="row">
 				<input type="hidden" name="action" id="action" value="<?= TimeSheet::can_start() ? 'start' : 'stop' ?>" />
-				<div class="col-md-12"><label for="comment">comment :</label><input type="text" name="comment" id="comment" value="<?= TimeSheet::get_last()->get_comment() ?>" /></div>
+				<div class="col-md-4"></div><div class="col-md-4"><label for="comment">comment :</label> <input type="text" name="comment" id="comment" value="<?= TimeSheet::get_last()->get_comment() ?>" /></div><div class="col-md-4"></div>
 			</div>
 		</form>
 		
@@ -97,13 +108,21 @@ $tss = TimeSheet::get_all ();
 				<th>start</th>
 				<th>stop</th>
 				<th>comment</th>
+				<th>&nbsp;</th>
 			</tr>
 		  	<?php
-					foreach ( $tss as $ts ) {
-						echo '<tr> <td>' . $ts->get_id () . '</td> <td>' . $ts->get_start () . '</td> <td>' . $ts->get_stop () . '</td> <td>' . $ts->get_comment () . '</td> </tr>';
-					}
-					?>
-			<!-- <tr> <th></th> <th></th> <th></th> <th></th> </tr> -->
+			foreach ( $tss as $ts ) {
+				echo '<tr> <td>' . $ts->get_id () . '</td> ';
+				echo '<td>' . $ts->get_start () . '</td> ';
+				echo '<td>' . $ts->get_stop () . '</td> ';
+				echo '<td>' . $ts->get_comment () . '</td> ';
+				echo '<td> 
+					<span class="glyphicon glyphicon-edit" aria-hidden="true"></span> 
+					<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> </td> 
+				</tr>';
+			}
+			?>
+			<!-- <tr> <th></th> <th></th> <th></th> <th></th> <th></th> </tr> -->
 		</table>
 
 	</div>
