@@ -151,14 +151,15 @@ class TimeSheet {
 	public static function can_stop() {
 		return !(self::can_start());
 	}
+
 	
 	
-	public static function start() {
+	public static function start($comment) {
 		global $conf;
 		if(self::can_start()) {
 			$ts = new TimeSheet();
 			$ts->start =  DB::get_sql_date();
-			$ts->comment = 'tâche en cours';
+			$ts->comment = isset($comment) ? $comment : 'tâche en cours';
 			$ts->save();
 		}
 		else {
@@ -168,12 +169,12 @@ class TimeSheet {
 	}
 	
 	
-	public static function stop() {
+	public static function stop($comment) {
 		global $conf;
 		if(self::can_stop()) {
 			$ts = TimeSheet::get_last();
 			$ts->stop = DB::get_sql_date();
-			$ts->comment = NULL;
+			$ts->comment = isset($comment) ? $comment : NULL;
 			$ts->save();
 		}
 		else {

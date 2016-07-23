@@ -67,19 +67,28 @@ $tss = TimeSheet::get_all ();
 			<h1>Timesheet</h1>
 			<p class="lead">timesheet description</p>
 		</div>
-
-		<div class="row">
-			<div class="container col-md-6">
-				<a href="start.php" class="btn btn-lg btn-success col-md-12 <?= TimeSheet::can_start() ? '' : 'disabled' ?> ">
-					<h1>Démarrer</h1>
-				</a>
+		
+		<form action="start-stop.action.php" method="post">
+			<div class="row">
+				<div class="container col-md-6">
+					<button type="submit" class="btn btn-lg btn-success col-md-12 <?= TimeSheet::can_start() ? '' : 'disabled' ?> ">
+						<h1>Démarrer</h1>
+					</button>
+				</div>
+				<div class="container col-md-6">
+					<button type="submit"  class="btn btn-lg btn-danger  col-md-12 <?= TimeSheet::can_stop()  ? '' : 'disabled' ?> ">
+						<h1>Arrêter</h1>
+					</button>
+				</div>
 			</div>
-			<div class="container col-md-6">
-				<a href="stop.php" class="btn btn-lg btn-danger  col-md-12 <?= TimeSheet::can_stop()  ? '' : 'disabled' ?> ">
-					<h1>Arrêter</h1>
-				</a>
+			
+			<div class="row">
+				<input type="hidden" name="action" id="action" value="<?= TimeSheet::can_start() ? 'start' : 'stop' ?>" />
+				<div class="col-md-12"><label for="comment">comment :</label><input type="text" name="comment" id="comment" value="<?= TimeSheet::get_last()->get_comment() ?>" /></div>
 			</div>
-		</div>
+		</form>
+		
+		
 		<div class="row">&nbsp;</div>
 
 		<table class="table table-bordered table-striped table-hover">
