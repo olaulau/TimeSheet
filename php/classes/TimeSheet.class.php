@@ -11,6 +11,7 @@ class TimeSheet {
 	private $comment = NULL;
 	
 	
+	/* getters and setters */
 	public function get_id() {
 		return $this->id;
 	}
@@ -27,8 +28,24 @@ class TimeSheet {
 		return $this->comment;
 	}
 	
+	public function set_id($id) {
+		$this->id = $id;
+	}
 	
-	private function save() {
+	public function set_start($start) {
+		$this->start = $start;
+	}
+	
+	public function set_stop($stop) {
+		$this->stop = $stop;
+	}
+	
+	public function set_comment($comment) {
+		$this->comment = $comment;
+	}
+	
+	
+	public function save() {
 		global $conf;
 		
 		DB::get()->beginTransaction();
@@ -85,6 +102,35 @@ class TimeSheet {
 		}
 		
 		DB::get()->commit();
+	}
+	
+	
+	public function delete() {
+		global $conf;
+	
+		$sql = "
+		DELETE FROM " . $conf['mysql_table_prefix'].$conf['table_name_data'] . "
+		WHERE id = :id";
+		$st = DB::get()->prepare($sql);
+		$array = array('id' => $this->id);
+		DB::bindArrayValue($st, $array);
+		$res = $st->execute();
+		if($st->errorCode() != 0) {
+			echo '<pre>' . $sql . '</pre>';
+			foreach($st->errorInfo() as $info) {
+				echo $info . '<br>';
+			}
+			die;
+		}
+		$row_count = $st->rowCount();
+		// 		var_dump($row_count);
+	
+		if($row_count === 0) {
+			return FALSE;
+		}
+		else {
+			return TRUE;
+		}
 	}
 	
 	
@@ -148,6 +194,7 @@ class TimeSheet {
 		else
 			return (isset($ts->stop)) ;
 	}
+	
 	public static function can_stop() {
 		return !(self::can_start());
 	}

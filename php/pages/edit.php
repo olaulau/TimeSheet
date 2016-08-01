@@ -1,20 +1,20 @@
 <?php
-require_once __DIR__ . '/php/ALL.inc.php';
+require_once __DIR__ . '/../ALL.inc.php';
 
+/* parameters handling */
+if(isset($_GET['id'])) {
+	$id = $_GET['id'];
+}
+else {
+	die('no id parameter provided');
+}
 
-/*  get all time sheets from the most recent  */
-$dbh = DB::get();
-$sql = '
-	SELECT id, start, stop, comment
-	FROM ' . $conf['mysql_table_prefix'].$conf['table_name_data'] . '
-	ORDER BY start DESC';
-//echo "<pre> $sql </pre>";
-$st = $dbh->query($sql) or die(print_r($dbh->errorInfo(), true));
-$st->setFetchMode(PDO::FETCH_CLASS, 'TimeSheet');
-$tss = $st->fetchAll(PDO::FETCH_CLASS, 'TimeSheet');
-
-$last_timesheet = TimeSheet::get_last();
-
+/* timesheet getting */
+$id = intval($id);
+$ts = TimeSheet::get_from_id($id);
+if(!isset($ts)) {
+	die('cannot find timesheet #' . $id);
+}
 
 ?>
 <!DOCTYPE html>
@@ -31,18 +31,18 @@ $last_timesheet = TimeSheet::get_last();
 <title>TimeSheet</title>
 
 <!-- Bootstrap core CSS -->
-<link href="css/bootstrap.min.css" rel="stylesheet">
-<link href="css/bootstrap-theme.min.css" rel="stylesheet">
+<link href="../../css/bootstrap.min.css" rel="stylesheet">
+<link href="../../css/bootstrap-theme.min.css" rel="stylesheet">
 
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-<link href="css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+<link href="../../css/ie10-viewport-bug-workaround.css" rel="stylesheet">
 
 <!-- Custom styles for this template -->
-<link href="css/index.css" rel="stylesheet">
+<link href="../../css/index.css" rel="stylesheet">
 
 <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
 <!--[if lt IE 9]><script src="js/ie8-responsive-file-warning.js"></script><![endif]-->
-<script src="js/ie-emulation-modes-warning.js"></script>
+<script src="../../js/ie-emulation-modes-warning.js"></script>
 
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 <!--[if lt IE 9]>
@@ -77,59 +77,20 @@ $last_timesheet = TimeSheet::get_last();
 	<div class="container">
 
 		<div class="starter-template">
-			<h1>Timesheet</h1>
-			<p class="lead">timesheet description</p>
+			<h1>Timesheet #<?= $ts->get_id() ?></h1>
+			<!-- <p class="lead">timesheet description</p> -->
 		</div>
 		
-		<form action="php/actions/start-stop.action.php" method="post">
-			<div class="row">
-				<div class="container col-md-6">
-					<button type="submit" class="btn btn-lg btn-success col-md-12 <?= TimeSheet::can_start() ? '' : 'disabled' ?> ">
-						<h1>Démarrer</h1>
-					</button>
-				</div>
-				<div class="container col-md-6">
-					<button type="submit"  class="btn btn-lg btn-danger  col-md-12 <?= TimeSheet::can_stop()  ? '' : 'disabled' ?> ">
-						<h1>Arrêter</h1>
-					</button>
-				</div>
-			</div>
-			
-			<div class="row">
-				<input type="hidden" name="action" id="action" value="<?= TimeSheet::can_start() ? 'start' : 'stop' ?>" />
-				<div class="col-md-4"></div><div class="col-md-4"><label for="comment">comment :</label> <input type="text" name="comment" id="comment" value="<?= $last_timesheet->get_comment() ?>" /></div><div class="col-md-4"></div>
-			</div>
+		<form action="../actions/edit.action.php" method="post">
+			<input type="hidden" name="id" id="id" value="<?= $ts->get_id() ?>" />
+			<div class="row"> <div class="col-md-2"><label for="start">start :</label></div>		<input type="datetime" name="start" id="start" value="<?= $ts->get_start() ?>" /> </div>
+			<div class="row"> <div class="col-md-2"><label for="stop">stop :</label></div> 			<input type="datetime" name="stop" id="stop" value="<?= $ts->get_stop() ?>" /> </div>
+			<div class="row"> <div class="col-md-2"><label for="comment">comment :</label></div> 	<input type="text" name="comment" id="comment" value="<?= $ts->get_comment() ?>" /> </div>
+			<button class="btn btn-lg btn-primary" type="submit">Save</button>
 		</form>
 		
 		
 		<div class="row">&nbsp;</div>
-
-		<table class="table table-bordered table-striped table-hover">
-			<tr>
-				<th>id</th>
-				<th>start</th>
-				<th>stop</th>
-				<th>comment</th>
-				<th>&nbsp;</th>
-			</tr>
-		  	<?php
-			foreach ( $tss as $ts ) {
-				?>
-			<tr>
-				<td><?= $ts->get_id() ?></td>
-				<td><?= $ts->get_start() ?></td>
-				<td><?= $ts->get_stop() ?></td>
-				<td><?= $ts->get_comment() ?></td>
-				<td>
-					<a href="php/pages/edit.php?id=<?= $ts->get_id() ?>"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
-					<a href="php/actions/delete.action.php?id=<?= $ts->get_id() ?>"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
-				</td>
-			</tr>
-				<?php
-			}
-			?>
-			<!-- <tr> <th></th> <th></th> <th></th> <th></th> <th></th> </tr> -->
-		</table>
 
 	</div>
 	<!-- /.container -->

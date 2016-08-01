@@ -9,6 +9,9 @@ if($_POST['action'] === 'start') {
 elseif($_POST['action'] === 'stop') {
 	TimeSheet::stop($_POST['comment']);
 }
+else {
+	die('no proper action parameter provided');
+}
 
 header('Location: ../../');
 exit;
