@@ -13,6 +13,8 @@ $st = $dbh->query($sql) or die(print_r($dbh->errorInfo(), true));
 $st->setFetchMode(PDO::FETCH_CLASS, 'TimeSheet');
 $tss = $st->fetchAll(PDO::FETCH_CLASS, 'TimeSheet');
 
+$last_timesheet = TimeSheet::get_last();
+
 
 ?>
 <!DOCTYPE html>
@@ -79,7 +81,7 @@ $tss = $st->fetchAll(PDO::FETCH_CLASS, 'TimeSheet');
 			<p class="lead">timesheet description</p>
 		</div>
 		
-		<form action="start-stop.action.php" method="post">
+		<form action="php/actions/start-stop.action.php" method="post">
 			<div class="row">
 				<div class="container col-md-6">
 					<button type="submit" class="btn btn-lg btn-success col-md-12 <?= TimeSheet::can_start() ? '' : 'disabled' ?> ">
@@ -95,7 +97,7 @@ $tss = $st->fetchAll(PDO::FETCH_CLASS, 'TimeSheet');
 			
 			<div class="row">
 				<input type="hidden" name="action" id="action" value="<?= TimeSheet::can_start() ? 'start' : 'stop' ?>" />
-				<div class="col-md-4"></div><div class="col-md-4"><label for="comment">comment :</label> <input type="text" name="comment" id="comment" value="<?= TimeSheet::get_last()->get_comment() ?>" /></div><div class="col-md-4"></div>
+				<div class="col-md-4"></div><div class="col-md-4"><label for="comment">comment :</label> <input type="text" name="comment" id="comment" value="<?= $last_timesheet->get_comment() ?>" /></div><div class="col-md-4"></div>
 			</div>
 		</form>
 		

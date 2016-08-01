@@ -3,5 +3,5 @@
 .settings/
 .externalToolBuilders/
 rsync.sh
-php/conf.inc.php
+php/conf/conf.inc.php
 

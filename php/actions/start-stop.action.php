@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/php/ALL.inc.php';
+require_once __DIR__ . '/../ALL.inc.php';
 
 
 if($_POST['action'] === 'start') {
@@ -10,5 +10,5 @@ elseif($_POST['action'] === 'stop') {
 	TimeSheet::stop($_POST['comment']);
 }
 
-header('Location: ./');
+header('Location: ../../');
 exit;
