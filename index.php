@@ -114,14 +114,18 @@ $last_timesheet = TimeSheet::get_last();
 			</tr>
 		  	<?php
 			foreach ( $tss as $ts ) {
-				echo '<tr> <td>' . $ts->get_id () . '</td> ';
-				echo '<td>' . $ts->get_start () . '</td> ';
-				echo '<td>' . $ts->get_stop () . '</td> ';
-				echo '<td>' . $ts->get_comment () . '</td> ';
-				echo '<td> 
-					<span class="glyphicon glyphicon-edit" aria-hidden="true"></span> 
-					<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> </td> 
-				</tr>';
+				?>
+			<tr>
+				<td><?= $ts->get_id () ?></td>
+				<td><?= $ts->get_start () ?></td>
+				<td><?= $ts->get_stop () ?></td>
+				<td><?= $ts->get_comment () ?></td>
+				<td>
+					<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+					<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+				</td>
+			</tr>
+				<?php
 			}
 			?>
 			<!-- <tr> <th></th> <th></th> <th></th> <th></th> <th></th> </tr> -->

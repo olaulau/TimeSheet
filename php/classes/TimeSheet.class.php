@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/ALL.inc.php';
+require_once __DIR__ . '/../ALL.inc.php';
 
 
 class TimeSheet {
