@@ -8,13 +8,14 @@
 					<span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#">TimeSheet</a>
+				<a class="navbar-brand" href="<?= app_base_path() ?>/">TimeSheet</a>
 			</div>
 			<div id="navbar" class="collapse navbar-collapse">
 				<ul class="nav navbar-nav">
-					<li class="active"><a href="#">Home</a></li>
-					<li><a href="#about">About</a></li>
-					<li><a href="#contact">Contact</a></li>
+					<li><a href="<?= app_base_path() ?>/">Home</a></li> <!-- class="active" -->
+					<li><a href="<?= app_base_path() ?>/php/pages/stats.php">Stats</a></li>
+<!-- 					<li><a href="#about">About</a></li> -->
+<!-- 					<li><a href="#contact">Contact</a></li> -->
 				</ul>
 			</div>
 			<!--/.nav-collapse -->
