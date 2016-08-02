@@ -23,6 +23,11 @@ require_once 'php/includes/head.inc.php';
 <?php
 require_once 'php/includes/header.inc.php';
 ?>
+<script type="text/javascript">
+	$( document ).ready(function() {
+		$("#home-tab").addClass("active");
+	});
+</script>
 
 	<div class="container">
 

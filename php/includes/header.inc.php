@@ -12,8 +12,8 @@
 			</div>
 			<div id="navbar" class="collapse navbar-collapse">
 				<ul class="nav navbar-nav">
-					<li><a href="<?= app_base_path() ?>/">Home</a></li> <!-- class="active" -->
-					<li><a href="<?= app_base_path() ?>/php/pages/stats.php">Stats</a></li>
+					<li id="home-tab"><a href="<?= app_base_path() ?>/">Home</a></li> <!-- class="active" -->
+					<li id="stats-tab"><a href="<?= app_base_path() ?>/php/pages/stats.php">Stats</a></li>
 <!-- 					<li><a href="#about">About</a></li> -->
 <!-- 					<li><a href="#contact">Contact</a></li> -->
 				</ul>
