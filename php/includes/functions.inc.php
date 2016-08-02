@@ -20,8 +20,7 @@ function app_base_path() {
 	// 	echo $webroot . "<br/>";
 	// 	echo " = <br/>";
 	$app_base_path = str_replace($webroot, '', __DIR__);
-	$app_base_path = dirname($app_base_path); //  because we are in a subdir, we must go to parent
+	$app_base_path = dirname(dirname($app_base_path)); //  because we are in a subdir, we must go to parent
 	// 	echo $app_base_path . "<br/><br/>";
 	return $app_base_path;
 }
-
