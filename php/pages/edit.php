@@ -51,6 +51,36 @@ require_once '../includes/header.inc.php';
 
 	</div>
 	<!-- /.container -->
+	
+<script type="text/javascript">
+	$( document ).ready(function() {
+
+		$('#start').datetimepicker({
+			dateFormat: 'yy-mm-dd',
+			timeInput: true,
+			timeFormat: "HH:mm:ss"
+		});
+		$('#start').datetimepicker('option', $.timepicker.regional['fr']);
+		$('#start').datetimepicker('option', {
+			dateFormat: 'yy-mm-dd',
+			timeInput: true,
+			timeFormat: "HH:mm:ss"
+		});
+
+		$('#stop').datetimepicker({
+			dateFormat: 'yy-mm-dd',
+			timeInput: true,
+			timeFormat: "HH:mm:ss"
+		});
+		$('#stop').datetimepicker('option', $.timepicker.regional['fr']);
+		$('#stop').datetimepicker('option', {
+			dateFormat: 'yy-mm-dd',
+			timeInput: true,
+			timeFormat: "HH:mm:ss"
+		});
+
+	});
+</script>
 
 <?php
 require_once '../includes/footer.inc.php';

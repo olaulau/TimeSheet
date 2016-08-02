@@ -39,4 +39,16 @@
 	<script src="js/bootstrap.min.js"></script>
 	<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 	<script src="js/ie10-viewport-bug-workaround.js"></script>
+	
+	<!-- jQuery Ui -->
+	<link rel="stylesheet" href="<?= app_base_path() ?>/vendor/jquery-ui-1.12.0/jquery-ui.min.css">
+	<script src="<?= app_base_path() ?>/vendor/jquery-ui-1.12.0/jquery-ui.min.js"></script>
+	<script src="<?= app_base_path() ?>/vendor/jquery-ui-1.12.0/i18n/datepicker-fr.js"></script>
+	
+	
+	<!-- jQuery-Timepicker-Addon -->
+	<link rel="stylesheet" href="<?= app_base_path() ?>/vendor/jQuery-Timepicker-Addon/jquery-ui-timepicker-addon.min.css">
+	<script src="<?= app_base_path() ?>/vendor/jQuery-Timepicker-Addon/jquery-ui-timepicker-addon.min.js"></script>
+	<script src="<?= app_base_path() ?>/vendor/jQuery-Timepicker-Addon/jquery-ui-timepicker-addon-i18n.min.js"></script>
+	
 </head>
