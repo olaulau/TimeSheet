@@ -5,7 +5,7 @@ require_once __DIR__ . '/../ALL.inc.php';
 /*  get all time sheets by day with stats  */
 $dbh = DB::get();
 $sql = '
-	SELECT DATE(start) AS day, SEC_TO_TIME( SUM( TIME_TO_SEC( TIMEDIFF(stop, start) ) ) ) AS duration
+	SELECT DATE(start) AS day, SEC_TO_TIME(SUM(TIME_TO_SEC( TIMEDIFF(stop, start) ))) AS duration
 	FROM ' . $conf['mysql_table_prefix'].$conf['table_name_data'] . '
 	GROUP BY day
 	ORDER BY day DESC';
@@ -40,13 +40,19 @@ require_once '../includes/header.inc.php';
 			<tr>
 				<th>day</th>
 				<th>duration</th>
+				<th>additional hour</th>
 			</tr>
 		  	<?php
 			foreach ( $tab as $row ) {
+				$duration = new DateTime('01-01-01 '. $row['duration']);
+				$daily_work_time = new DateTime('01-01-01 '. $conf['daily_work_time']);
+				$diff = $daily_work_time->diff($duration);
+				$diff = $diff->format('%R %H:%I:%S');
 				?>
 			<tr>
 				<td><?= $row['day'] ?></td>
 				<td><?= $row['duration'] ?></td>
+				<td><?= $diff ?></td>
 			</tr>
 				<?php
 			}
