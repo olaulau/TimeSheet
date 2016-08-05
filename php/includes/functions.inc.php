@@ -28,7 +28,8 @@ function app_base_path() {
 /* date functions */
 function format_datetime($datetime) {
 	if(isset($datetime)) {
-		$datetime = new DateTime($datetime);
+		if(!is_object($datetime))
+			$datetime = new DateTime($datetime);
 		$datetime = $datetime->format('Y-m-d H:i');
 	}
 	return $datetime;
@@ -50,11 +51,11 @@ function format_date($datetime) {
 	return $datetime;
 }
 
-function format_interval($diff) {
-	if(isset($diff)) {
-		$diff = $diff->format('%R %H:%I');
+function format_interval($interval) {
+	if(isset($interval)) {
+		$interval = $interval->format('%R %H:%I');
 	}
-	return $diff;
+	return $interval;
 }
 
 function calculate_interval($time1, $time2) {
@@ -67,5 +68,18 @@ function calculate_interval($time1, $time2) {
 	else {
 		return NULL;
 	}
+}
+
+function convert_interval_into_seconds($interval) {
+	$seconds = date_create('@0')->add($interval)->getTimestamp();
+	return $seconds;
+}
+
+function add_intervals($int1, $int2) {
+	$d1 = new DateTime();
+	$d2 = new DateTime();
+	$d2->add(new DateInterval('PT'.$timespan.'S'));
+	 
+	$iv = $d2->diff($d1);	
 }
 

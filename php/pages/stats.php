@@ -1,6 +1,8 @@
 <?php
 require_once __DIR__ . '/../ALL.inc.php';
 
+use Herrera\DateInterval\DateInterval;
+
 
 /*  get all time sheets by day with stats  */
 $dbh = DB::get();
@@ -43,8 +45,11 @@ require_once '../includes/header.inc.php';
 				<th>additional hour</th>
 			</tr>
 		  	<?php
+		  	$total_additional_hours = new DateTime('@0');
 			foreach ( $tab as $row ) {
 				$diff = calculate_interval($row['duration'], $conf['daily_work_time']);
+				$total_additional_hours->add($diff);
+				
 				?>
 			<tr>
 				<td><?= format_date($row['day']) ?></td>
@@ -53,8 +58,10 @@ require_once '../includes/header.inc.php';
 			</tr>
 				<?php
 			}
+			$zero = new DateTime('@0');
+			$total_additional_hours = $zero->diff($total_additional_hours);
 			?>
-			<!-- <tr> <th></th> <th></th> <th></th> <th></th> <th></th> </tr> -->
+			<tr> <th> TOTAL </th> <th> </th> <th><?= format_interval($total_additional_hours) ?></th> </tr>
 		</table>
 
 	</div>
