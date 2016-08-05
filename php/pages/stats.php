@@ -5,7 +5,7 @@ require_once __DIR__ . '/../ALL.inc.php';
 /*  get all time sheets by day with stats  */
 $dbh = DB::get();
 $sql = '
-	SELECT DATE(start) AS day, SEC_TO_TIME(SUM( TIMEDIFF(stop, start) )) AS duration
+	SELECT DATE(start) AS day, SEC_TO_TIME( SUM( TIME_TO_SEC( TIMEDIFF(stop, start) ) ) ) AS duration
 	FROM ' . $conf['mysql_table_prefix'].$conf['table_name_data'] . '
 	GROUP BY day
 	ORDER BY day DESC';

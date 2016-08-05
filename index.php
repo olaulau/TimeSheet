@@ -5,7 +5,7 @@ require_once __DIR__ . '/php/ALL.inc.php';
 /*  get all time sheets from the most recent  */
 $dbh = DB::get();
 $sql = '
-	SELECT id, start, stop, comment
+	SELECT id, start, stop, comment, ( TIMEDIFF(stop, start) ) AS duration
 	FROM ' . $conf['mysql_table_prefix'].$conf['table_name_data'] . '
 	ORDER BY start DESC';
 //echo "<pre> $sql </pre>";
@@ -66,6 +66,7 @@ require_once 'php/includes/header.inc.php';
 				<th>stop</th>
 				<th>comment</th>
 				<th>&nbsp;</th>
+				<th>duration</th>
 			</tr>
 		  	<?php
 			foreach ( $tss as $ts ) {
@@ -79,6 +80,7 @@ require_once 'php/includes/header.inc.php';
 					<a href="php/pages/edit.php?id=<?= $ts->get_id() ?>"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
 					<a href="php/actions/delete.action.php?id=<?= $ts->get_id() ?>"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
 				</td>
+				<td><?= $ts->duration ?></td>
 			</tr>
 				<?php
 			}
