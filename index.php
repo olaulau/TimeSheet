@@ -38,20 +38,21 @@ require_once 'php/includes/header.inc.php';
 		
 		<form action="php/actions/start-stop.action.php" method="post">
 			<div class="row">
-				<div class="container col-md-6">
-					<button type="submit" class="btn btn-lg btn-success col-md-12 <?= TimeSheet::can_start() ? '' : 'disabled' ?> ">
-						<h1>Démarrer</h1>
+				<div class="container col-md-6 col-xs-12">
+					<button type="submit" class="btn btn-lg btn-success col-md-12 col-xs-12 <?= TimeSheet::can_start() ? '' : 'disabled' ?> ">
+						<h1>Start</h1>
 					</button>
 				</div>
-				<div class="container col-md-6">
-					<button type="submit"  class="btn btn-lg btn-danger  col-md-12 <?= TimeSheet::can_stop()  ? '' : 'disabled' ?> ">
-						<h1>Arrêter</h1>
+				<div class="container col-md-6 col-xs-12">
+					<button type="submit" class="btn btn-lg btn-danger col-md-12 col-xs-12 <?= TimeSheet::can_stop()  ? '' : 'disabled' ?> ">
+						<h1>Stop</h1>
 					</button>
 				</div>
 			</div>
 			
 			<div class="row">
 				<input type="hidden" name="action" id="action" value="<?= TimeSheet::can_start() ? 'start' : 'stop' ?>" />
+				<br/>
 				<div class="col-md-4"></div><div class="col-md-4"><label for="comment">comment :</label> <input type="text" name="comment" id="comment" value="<?= $last_timesheet->get_comment() ?>" /></div><div class="col-md-4"></div>
 			</div>
 		</form>
