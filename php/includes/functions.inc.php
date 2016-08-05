@@ -24,3 +24,35 @@ function app_base_path() {
 	// 	echo $app_base_path . "<br/><br/>";
 	return $app_base_path;
 }
+
+/* date functions */
+function format_datetime($datetime) {
+	$datetime = new DateTime($datetime);
+	$datetime = $datetime->format('Y-m-d H:i');
+	return $datetime;
+}
+
+function format_time($datetime) {
+	$datetime = new DateTime($datetime);
+	$datetime = $datetime->format('H:i');
+	return $datetime;
+}
+
+function format_date($datetime) {
+	$datetime = new DateTime($datetime);
+	$datetime = $datetime->format('Y-m-d');
+	return $datetime;
+}
+
+function format_interval($diff) {
+	$diff = $diff->format('%R %H:%I');
+	return $diff;
+}
+
+function calculate_interval($time1, $time2) {
+	$time1 = new DateTime('01-01-01 '. $time1);
+	$time2 = new DateTime('01-01-01 '. $time2);
+	$diff = $time2->diff($time1);
+	return $diff;
+}
+

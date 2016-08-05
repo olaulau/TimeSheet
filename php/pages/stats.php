@@ -44,15 +44,12 @@ require_once '../includes/header.inc.php';
 			</tr>
 		  	<?php
 			foreach ( $tab as $row ) {
-				$duration = new DateTime('01-01-01 '. $row['duration']);
-				$daily_work_time = new DateTime('01-01-01 '. $conf['daily_work_time']);
-				$diff = $daily_work_time->diff($duration);
-				$diff = $diff->format('%R %H:%I:%S');
+				$diff = calculate_interval($row['duration'], $conf['daily_work_time']);
 				?>
 			<tr>
-				<td><?= $row['day'] ?></td>
-				<td><?= $row['duration'] ?></td>
-				<td><?= $diff ?></td>
+				<td><?= format_date($row['day']) ?></td>
+				<td><?= format_time($row['duration']) ?></td>
+				<td><?= format_interval($diff) ?></td>
 			</tr>
 				<?php
 			}

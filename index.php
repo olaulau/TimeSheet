@@ -73,14 +73,14 @@ require_once 'php/includes/header.inc.php';
 				?>
 			<tr>
 				<td><?= $ts->get_id() ?></td>
-				<td><?= $ts->get_start() ?></td>
-				<td><?= $ts->get_stop() ?></td>
+				<td><?= format_datetime($ts->get_start()) ?></td>
+				<td><?= format_datetime($ts->get_stop()) ?></td>
 				<td><?= $ts->get_comment() ?></td>
 				<td>
 					<a href="php/pages/edit.php?id=<?= $ts->get_id() ?>"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
 					<a href="php/actions/delete.action.php?id=<?= $ts->get_id() ?>"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
 				</td>
-				<td><?= $ts->duration ?></td>
+				<td><?= format_time($ts->duration) ?></td>
 			</tr>
 				<?php
 			}
