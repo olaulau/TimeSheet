@@ -25,6 +25,46 @@ function app_base_path() {
 	return $app_base_path;
 }
 
+
+
+/* display helper */
+function display_raw_SQL_data($data) {
+	?>
+	<!-- raw SQL table display -->
+	<div class="container">
+		<div class="row">&nbsp;</div>
+		<table class="table table-bordered table-striped table-hover">
+			<tr>
+				<?php
+				foreach ($data[0] as $key => $value) {
+					?>
+					<th><?= $key ?></th>
+					<?php
+				}
+				?>
+			</tr>
+			<?php
+			foreach ( $data as $row ) {
+				?>
+				<tr>
+					<?php
+					foreach ($row as $value) {
+						?>
+						<td><?= $value ?></td>
+						<?php
+					}
+					?>
+				</tr>
+			<?php
+			}
+			?>
+		</table>
+	</div>
+	<?php
+}
+
+
+
 /* date functions */
 function format_datetime($datetime) {
 	if(isset($datetime)) {
@@ -83,4 +123,5 @@ function add_intervals($int1, $int2) {
 	 
 	$iv = $d2->diff($d1);	
 }
+
 
