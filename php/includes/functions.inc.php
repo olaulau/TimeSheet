@@ -53,7 +53,7 @@ function format_date($datetime) {
 
 function format_interval($interval) {
 	if(isset($interval)) {
-		$interval = $interval->format('%R %H:%I');
+		$interval = $interval->format('%r %H:%I');
 	}
 	return $interval;
 }
@@ -70,9 +70,10 @@ function calculate_interval($time1, $time2) {
 	}
 }
 
-function convert_interval_into_seconds($interval) {
-	$seconds = date_create('@0')->add($interval)->getTimestamp();
-	return $seconds;
+function create_DateInterval_from_time_string($time) {
+	$time = explode(':', $time);
+	$interval = new DateInterval('PT'.$time[0].'H'.$time[1].'M'.$time[2].'S');
+	return $interval;
 }
 
 function add_intervals($int1, $int2) {
