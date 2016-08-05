@@ -40,8 +40,8 @@ require_once '../includes/header.inc.php';
 		
 		<form action="../actions/edit.action.php" method="post">
 			<input type="hidden" name="id" id="id" value="<?= $ts->get_id() ?>" />
-			<div class="row"> <div class="col-md-2"><label for="start">start :</label></div>		<input type="datetime" name="start" id="start" value="<?= $ts->get_start() ?>" /> </div>
-			<div class="row"> <div class="col-md-2"><label for="stop">stop :</label></div> 			<input type="datetime" name="stop" id="stop" value="<?= $ts->get_stop() ?>" /> </div>
+			<div class="row"> <div class="col-md-2"><label for="start">start :</label></div>		<input type="datetime" name="start" id="start" value="<?= format_datetime($ts->get_start()) ?>" /> </div>
+			<div class="row"> <div class="col-md-2"><label for="stop">stop :</label></div> 			<input type="datetime" name="stop" id="stop" value="<?= format_datetime($ts->get_stop()) ?>" /> </div>
 			<div class="row"> <div class="col-md-2"><label for="comment">comment :</label></div> 	<input type="text" name="comment" id="comment" value="<?= $ts->get_comment() ?>" /> </div>
 			<button class="btn btn-lg btn-primary" type="submit">Save</button>
 		</form>
@@ -58,25 +58,25 @@ require_once '../includes/header.inc.php';
 		$('#start').datetimepicker({
 			dateFormat: 'yy-mm-dd',
 			timeInput: true,
-			timeFormat: "HH:mm:ss"
+			timeFormat: "HH:mm"
 		});
 		$('#start').datetimepicker('option', $.timepicker.regional['fr']);
 		$('#start').datetimepicker('option', {
 			dateFormat: 'yy-mm-dd',
 			timeInput: true,
-			timeFormat: "HH:mm:ss"
+			timeFormat: "HH:mm"
 		});
 
 		$('#stop').datetimepicker({
 			dateFormat: 'yy-mm-dd',
 			timeInput: true,
-			timeFormat: "HH:mm:ss"
+			timeFormat: "HH:mm"
 		});
 		$('#stop').datetimepicker('option', $.timepicker.regional['fr']);
 		$('#stop').datetimepicker('option', {
 			dateFormat: 'yy-mm-dd',
 			timeInput: true,
-			timeFormat: "HH:mm:ss"
+			timeFormat: "HH:mm"
 		});
 
 	});

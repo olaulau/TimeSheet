@@ -27,32 +27,45 @@ function app_base_path() {
 
 /* date functions */
 function format_datetime($datetime) {
-	$datetime = new DateTime($datetime);
-	$datetime = $datetime->format('Y-m-d H:i');
+	if(isset($datetime)) {
+		$datetime = new DateTime($datetime);
+		$datetime = $datetime->format('Y-m-d H:i');
+	}
 	return $datetime;
 }
 
 function format_time($datetime) {
-	$datetime = new DateTime($datetime);
-	$datetime = $datetime->format('H:i');
+	if(isset($datetime)) {
+		$datetime = new DateTime($datetime);
+		$datetime = $datetime->format('H:i');
+	}
 	return $datetime;
 }
 
 function format_date($datetime) {
-	$datetime = new DateTime($datetime);
-	$datetime = $datetime->format('Y-m-d');
+	if(isset($datetime)) {
+		$datetime = new DateTime($datetime);
+		$datetime = $datetime->format('Y-m-d');
+	}
 	return $datetime;
 }
 
 function format_interval($diff) {
-	$diff = $diff->format('%R %H:%I');
+	if(isset($diff)) {
+		$diff = $diff->format('%R %H:%I');
+	}
 	return $diff;
 }
 
 function calculate_interval($time1, $time2) {
-	$time1 = new DateTime('01-01-01 '. $time1);
-	$time2 = new DateTime('01-01-01 '. $time2);
-	$diff = $time2->diff($time1);
-	return $diff;
+	if(isset($time1) && isset($time2)) {
+		$time1 = new DateTime('01-01-01 '. $time1);
+		$time2 = new DateTime('01-01-01 '. $time2);
+		$diff = $time2->diff($time1);
+		return $diff;
+	}
+	else {
+		return NULL;
+	}
 }
 
