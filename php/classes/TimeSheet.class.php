@@ -76,9 +76,33 @@ class TimeSheet {
 			die;
 		}
 		$row_count = $st->rowCount();
-// 		var_dump($row_count);
+// 		var_dump($row_count); die;
 				
 		if($row_count === 0) {
+			if(isset($this->id)) {
+				$sql = "
+				SELECT COUNT(*) AS nb
+				FROM " . $conf['mysql_table_prefix'].$conf['table_name_data'] . "
+				WHERE id = :id";
+				$st = DB::get()->prepare($sql);
+				$array = array('id' => $this->id);
+				DB::bindArrayValue($st, $array);
+				$res = $st->execute();
+				if($st->errorCode() != 0) {
+					echo '<pre>' . $sql . '</pre>';
+					foreach($st->errorInfo() as $info) {
+						echo $info . '<br>';
+					}
+					die;
+				}
+				$row_count = $st->fetch(PDO::FETCH_ASSOC);
+// 				var_dump($row_count); die;
+				
+				if(intval($row_count) === 1) {
+					die("nothing to update");
+				}
+			}
+			
 			$sql = "
 			INSERT INTO " . $conf['mysql_table_prefix'].$conf['table_name_data'] . " (id, start, stop, comment)
 			VALUES (:id, :start, :stop, :comment)";
@@ -205,7 +229,7 @@ class TimeSheet {
 		global $conf;
 		if(self::can_start()) {
 			$ts = new TimeSheet();
-			$ts->start =  DB::get_sql_date();
+			$ts->start = DB::get_sql_date();
 			$ts->comment = isset($comment) ? $comment : 'tâche en cours';
 			$ts->save();
 		}
