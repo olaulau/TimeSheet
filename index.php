@@ -99,4 +99,3 @@ require_once 'php/includes/footer.inc.php';
 <?php
 require_once 'php/includes/foot.inc.php';
 ?>
-

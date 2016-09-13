@@ -21,7 +21,8 @@ if(!isset($ts)) {
 /* timesheet edit */
 if(isset($_POST['start']) && isset($_POST['stop']) && isset($_POST['comment'])) {
 	$ts->set_start($_POST['start']);
-	$ts->set_stop($_POST['stop']);
+	$stop = empty($_POST['stop']) ? NULL : $_POST['stop'];
+	$ts->set_stop($stop);
 	$ts->set_comment($_POST['comment']);
 	$ts->save();
 }

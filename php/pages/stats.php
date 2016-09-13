@@ -66,7 +66,7 @@ require_once '../includes/header.inc.php';
 						$total_additional_hours = $zero->diff($total_additional_hours);
 					}
 					else { // whole total
-						$total_additional_hours = NULL;
+						$total_additional_hours = NULL; //TODO : compute with SQL ?
 					}
 					
 					?>
