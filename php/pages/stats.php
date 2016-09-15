@@ -7,7 +7,8 @@ $dbh = DB::get();
 $sql = '
 	SELECT WEEK(start) AS week, DATE(start) AS day, SEC_TO_TIME(SUM(TIME_TO_SEC( TIMEDIFF(stop, start) ))) AS duration
 	FROM ' . $conf['mysql_table_prefix'].$conf['table_name_data'] . '
-	GROUP BY week, day DESC WITH ROLLUP
+	WHERE	stop IS NOT NULL
+	GROUP BY week DESC, day DESC WITH ROLLUP
 	-- ORDER BY day DESC';
 //echo "<pre> $sql </pre>";
 $st = $dbh->query($sql) or die(print_r($dbh->errorInfo(), true));
