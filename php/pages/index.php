@@ -53,7 +53,7 @@ require_once __DIR__ . '/../includes/header.inc.php';
 			<div class="row">
 				<input type="hidden" name="action" id="action" value="<?= TimeSheet::can_start() ? 'start' : 'stop' ?>" />
 				<br/>
-				<div class="col-md-4"></div><div class="col-md-4"><label for="comment">comment :</label> <input type="text" name="comment" id="comment" value="<?= $last_timesheet->get_comment() ?>" /></div><div class="col-md-4"></div>
+				<div class="col-md-4"></div><div class="col-md-4"><label for="comment">comment :</label> <input type="text" name="comment" id="comment" value="<?= isset($last_timesheet) ? $last_timesheet->get_comment() : '' ?>" /></div><div class="col-md-4"></div>
 			</div>
 		</form>
 		
