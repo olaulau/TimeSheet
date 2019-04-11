@@ -23,11 +23,11 @@ $tab = $st->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <?php
-require_once '../includes/head.inc.php';
+require_once __DIR__ . '/../includes/head.inc.php';
 ?>
 
 <?php
-require_once '../includes/header.inc.php';
+require_once __DIR__ . '/../includes/header.inc.php';
 ?>
 <script type="text/javascript">
 	$( document ).ready(function() {
@@ -88,9 +88,9 @@ require_once '../includes/header.inc.php';
 	<!-- /.container -->
 
 <?php
-require_once '../includes/footer.inc.php';
+require_once __DIR__ . '/../includes/footer.inc.php';
 ?>
 
 <?php
-require_once '../includes/foot.inc.php';
+require_once __DIR__ . '/../includes/foot.inc.php';
 ?>
