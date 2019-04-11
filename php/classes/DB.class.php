@@ -83,8 +83,7 @@ class DB {
 	public static function get_sql_date() {
 		$d = new DateTime();
 		$d->setTime($d->format('H'), $d->format('i'), '00'); //set seconds to 00 as we don't care of seconds
-		return $d->format(DateTime::RFC3339);
+		return $d->format('Y-m-d\TH:i:s');
 	}
 	
 }
-

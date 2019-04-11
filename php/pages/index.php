@@ -36,7 +36,7 @@ require_once __DIR__ . '/../includes/header.inc.php';
 			<p class="lead">timesheet description</p>
 		</div>
 		
-		<form action="php/actions/start-stop.action.php" method="post">
+		<form action="../actions/start-stop.action.php" method="post">
 			<div class="row">
 				<div class="container col-md-6 col-xs-12">
 					<button type="submit" class="btn btn-lg btn-success col-md-12 col-xs-12 <?= TimeSheet::can_start() ? '' : 'disabled' ?> ">
@@ -66,8 +66,8 @@ require_once __DIR__ . '/../includes/header.inc.php';
 				<th>start</th>
 				<th>stop</th>
 				<th>comment</th>
-				<th>&nbsp;</th>
 				<th>duration</th>
+				<th>&nbsp;</th>
 			</tr>
 		  	<?php
 			foreach ( $tss as $ts ) {
@@ -77,11 +77,11 @@ require_once __DIR__ . '/../includes/header.inc.php';
 				<td><?= format_datetime($ts->get_start()) ?></td>
 				<td><?= format_datetime($ts->get_stop()) ?></td>
 				<td><?= $ts->get_comment() ?></td>
-				<td>
-					<a href="php/pages/edit.php?id=<?= $ts->get_id() ?>"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
-					<a href="php/actions/delete.action.php?id=<?= $ts->get_id() ?>"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
-				</td>
 				<td><?= format_time($ts->duration) ?></td>
+				<td>
+					<a href="../pages/edit.php?id=<?= $ts->get_id() ?>"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+					<a href="../actions/delete.action.php?id=<?= $ts->get_id() ?>"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
+				</td>
 			</tr>
 				<?php
 			}
