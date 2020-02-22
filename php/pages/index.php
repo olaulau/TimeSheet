@@ -7,7 +7,7 @@ $dbh = DB::get();
 $sql = '
 	SELECT id, start, stop, comment, ( TIMEDIFF(stop, start) ) AS duration
 	FROM ' . $conf['mysql_table_prefix'].$conf['table_name_data'] . '
-	ORDER BY start, id DESC';
+	ORDER BY start DESC, id DESC';
 //echo "<pre> $sql </pre>";
 $st = $dbh->query($sql) or die(print_r($dbh->errorInfo(), true));
 $st->setFetchMode(PDO::FETCH_CLASS, 'TimeSheet');
