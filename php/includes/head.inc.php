@@ -13,17 +13,17 @@
 	
 	<!-- Bootstrap core CSS -->
 	<link href="../../css/bootstrap.min.css" rel="stylesheet">
-	<link href="../..//css/bootstrap-theme.min.css" rel="stylesheet">
+	<link href="../../css/bootstrap-theme.min.css" rel="stylesheet">
 	
 	<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-	<link href="../..//css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+	<link href="../../css/ie10-viewport-bug-workaround.css" rel="stylesheet">
 	
 	<!-- Custom styles for this template -->
-	<link href="../..//css/index.css" rel="stylesheet">
+	<link href="../../css/index.css" rel="stylesheet">
 	
 	<!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
 	<!--[if lt IE 9]><script src="js/ie8-responsive-file-warning.js"></script><![endif]-->
-	<script src="../..//js/ie-emulation-modes-warning.js"></script>
+	<script src="../../js/ie-emulation-modes-warning.js"></script>
 	
 	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 	<!--[if lt IE 9]>
@@ -36,19 +36,19 @@
 	<!-- Placed at the end of the document so the pages load faster -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script>window.jQuery || document.write('<script src="js/vendor/jquery.min.js"><\/script>')</script>
-	<script src="../..//js/bootstrap.min.js"></script>
+	<script src="../../js/bootstrap.min.js"></script>
 	<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-	<script src="../..//js/ie10-viewport-bug-workaround.js"></script>
+	<script src="../../js/ie10-viewport-bug-workaround.js"></script>
 	
 	<!-- jQuery Ui -->
 	<link rel="stylesheet" href="../..//vendor/jquery-ui-1.12.0/jquery-ui.min.css">
-	<script src="../..//vendor/jquery-ui-1.12.0/jquery-ui.min.js"></script>
-	<script src="../..//vendor/jquery-ui-1.12.0/i18n/datepicker-fr.js"></script>
+	<script src="../../vendor/jquery-ui-1.12.0/jquery-ui.min.js"></script>
+	<script src="../../vendor/jquery-ui-1.12.0/i18n/datepicker-fr.js"></script>
 	
 	
 	<!-- jQuery-Timepicker-Addon -->
-	<link rel="stylesheet" href="../..//vendor/jQuery-Timepicker-Addon/jquery-ui-timepicker-addon.min.css">
-	<script src="../..//vendor/jQuery-Timepicker-Addon/jquery-ui-timepicker-addon.min.js"></script>
-	<script src="../..//vendor/jQuery-Timepicker-Addon/jquery-ui-timepicker-addon-i18n.min.js"></script>
+	<link rel="stylesheet" href="../../vendor/jQuery-Timepicker-Addon/jquery-ui-timepicker-addon.min.css">
+	<script src="../../vendor/jQuery-Timepicker-Addon/jquery-ui-timepicker-addon.min.js"></script>
+	<script src="../../vendor/jQuery-Timepicker-Addon/jquery-ui-timepicker-addon-i18n.min.js"></script>
 	
 </head>
