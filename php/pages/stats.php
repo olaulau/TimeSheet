@@ -5,21 +5,38 @@ require_once __DIR__ . '/../ALL.inc.php';
 /*  get all time sheets by day with stats  */
 $dbh = DB::get();
 $sql = '
-	SELECT WEEK(start) AS week, DATE(start) AS day, SEC_TO_TIME(SUM(TIME_TO_SEC( TIMEDIFF(stop, start) ))) AS duration
+	SELECT
+		YEAR(start) AS year,
+		MONTH(start) AS month,
+		WEEK(start) AS week,
+		DATE(start) AS date,
+		SEC_TO_TIME( SUM( TIME_TO_SEC( TIMEDIFF( stop, start ) ) ) ) AS duration
 	FROM ' . $conf['mysql_table_prefix'].$conf['table_name_data'] . '
 	WHERE	stop IS NOT NULL
-	GROUP BY week DESC, day DESC WITH ROLLUP
-	-- ORDER BY day DESC';
+	GROUP BY year DESC, month DESC, week DESC, date DESC WITH ROLLUP';
 //echo "<pre> $sql </pre>";
 $st = $dbh->query($sql) or die(print_r($dbh->errorInfo(), true));
-$tab = $st->fetchAll(PDO::FETCH_ASSOC);
+$data = $st->fetchAll(PDO::FETCH_ASSOC);
 
 // echo "<pre>";
-// var_dump($tab);
+// var_dump($data);
 // echo "</pre>";
 // die;
 
-// display_raw_SQL_data($tab);
+// display_raw_SQL_data($data); die;
+
+// compute additional time
+foreach ( $data as &$row ) {
+	if(!empty($row['date'])) { // day
+		$row ['additional_time'] = /* /// */format_interval ( calculate_interval ( $row['duration'], $conf['daily_work_time'] ) );
+	}
+}
+// display_raw_SQL_data($data); die;
+
+
+// make year - month - week - day groups
+$data = make_array_groups ( $data, ['year', 'month', 'week', 'date'] );
+// var_dump($data); die;
 ?>
 
 <?php
@@ -41,44 +58,68 @@ require_once __DIR__ . '/../includes/header.inc.php';
 
 		<table class="table table-bordered table-striped table-hover">
 			<tr>
+				<th>year</th>
+				<th>month</th>
 				<th>week</th>
-				<th>day</th>
+				<th>date</th>
 				<th>duration</th>
 				<th>additional hour</th>
 			</tr>
 		  	<?php
-		  	$total_additional_hours = new DateTime('@0');
-			foreach ( $tab as $row ) {
-				if(isset($row['day'])) { // complete row
-					$diff = calculate_interval($row['duration'], $conf['daily_work_time']);
-					$total_additional_hours->add($diff);
+			foreach ( $data as $year => $months ) {
+				if(!empty($year)) {
 					?>
 					<tr>
-						<td><?= $row['week'] ?></td>
-						<td><?= format_date($row['day']) ?></td>
-						<td><?= format_interval(create_DateInterval_from_time_string($row['duration'])) ?></td>
-						<td><?= format_interval($diff) ?></td>
+						<td colspan="6"><?= $year ?></td>
 					</tr>
 					<?php
 				}
-				else {
-					if(isset($row['week'])) { // week total
-						$zero = new DateTime('@0');
-						$total_additional_hours = $zero->diff($total_additional_hours);
+				foreach ( $months as $month => $weeks ) {
+					if(!empty($month)) {
+						?>
+						<tr>
+							<td> &nbsp; </td>
+							<td colspan="5"><?= $month ?></td>
+						</tr>
+						<?php
 					}
-					else { // whole total
-						$total_additional_hours = NULL; //TODO : compute with SQL ?
+					foreach ( $weeks as $week => $dates ) {
+						if(!empty($week)) {
+							?>
+							<tr>
+								<td> &nbsp; </td>
+								<td> &nbsp; </td>
+								<td colspan="4"><?= $week ?></td>
+							</tr>
+							<?php
+						}
+						foreach ( $dates as $date => $timesheet ) {
+							if (!empty($date)) {
+								?>
+								<tr>
+									<td> &nbsp; </td>
+									<td> &nbsp; </td>
+									<td> &nbsp; </td>
+									<td><?= format_date($date) ?></td>
+									<td><?= format_interval(create_DateInterval_from_time_string($timesheet['duration'])) ?></td>
+									<td> &nbsp; </td>
+								</tr>
+								<?php
+							}
+							else {
+								?>
+								<tr>
+									<td><?= $year ?></td>
+									<td><?= $month ?></td>
+									<td><?= $week ?></td>
+									<td><?= format_date($date) ?></td>
+									<td><?= format_interval(create_DateInterval_from_time_string($timesheet['duration'])) ?></td>
+									<td> &nbsp; </td>
+								</tr>
+								<?php
+							}
+						}
 					}
-					
-					?>
-					<tr>
-						<th><?= $row['week'] ?></th>
-						<th> TOTAL </th>
-						<th><?= format_interval(create_DateInterval_from_time_string($row['duration'])) ?></th>
-						<th><?= format_interval($total_additional_hours) ?></th>
-					</tr>
-					<?php
-					$total_additional_hours = new DateTime('@0'); //TODO : total only by week for now
 				}
 			}
 			?>

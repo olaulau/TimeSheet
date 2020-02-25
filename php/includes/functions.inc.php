@@ -58,7 +58,7 @@ function format_time($datetime) {
 }
 
 function format_date($datetime) {
-	if(isset($datetime)) {
+	if(!empty($datetime)) {
 		$datetime = new DateTime($datetime);
 		$datetime = $datetime->format('Y-m-d');
 	}
@@ -72,7 +72,7 @@ function format_interval($interval) {
 	return $interval;
 }
 
-function calculate_interval($time1, $time2) {
+function calculate_interval ( $time1, $time2 ) {
 	if(isset($time1) && isset($time2)) {
 		$time1 = new DateTime('01-01-01 '. $time1);
 		$time2 = new DateTime('01-01-01 '. $time2);
@@ -99,3 +99,50 @@ function add_intervals($int1, $int2) {
 }
 
 
+function make_array_group ( $data, $column ) {
+	$res = [];
+	foreach ( $data as $row ) {
+		$group = $row [ $column ];
+		unset ( $row [ $column ] );
+		$res [ $group ] [] = $row;
+	}
+	return $res;
+}
+
+
+function make_array_groups ( $data, $columns ) {
+	if ( empty($columns) ) {
+		return $data;
+	}
+	
+	$column = array_shift ( $columns );
+	$res = [];
+	foreach ( $data as $row ) {
+		$group = $row [ $column ];
+		unset ( $row [ $column ] );
+		if (!empty($columns)) {
+			$res [ $group ] [] = $row;
+		}
+		else { // last group uniq, no need of array
+			$res [ $group ] = $row;
+		}
+	}
+	
+	foreach ($res as &$group) {
+		$group = make_array_groups ( $group, $columns );
+	}
+	return $res;
+}
+
+
+function count_recursive ($array, $limit) {
+	$count = 0;
+	foreach ($array as $id => $_array) {
+		if (is_array ($_array) && $limit > 0) {
+			$count += count_recursive ($_array, $limit - 1);
+		} else {
+			$count += 1;
+		}
+	}
+	return $count;
+} 
